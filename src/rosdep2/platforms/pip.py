@@ -87,6 +87,9 @@ def pip_detect(pkgs, exec_fn=None):
     if not pip_cmd:
         return []
 
+    # if the package string contains a version enforcing part, ignore it
+    pkgs = [p.split('=')[0].split('<')[0].split('>')[0] for p in pkgs]
+
     fallback_to_pip_show = False
     if exec_fn is None:
         exec_fn = read_stdout
